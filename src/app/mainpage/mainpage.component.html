@@ -1,0 +1,18 @@
+<mat-card>
+    <mat-card-title>
+      <p style="color: white">Englischer Text</p>
+    </mat-card-title>
+    <mat-form-field>
+      <textarea matInput rows="6" name="englishText" [(ngModel)]="enteredValue" required placeholder="Englischer Text"></textarea>
+    </mat-form-field>
+    <button (click)="onSendText()" mat-raised-button color="primary">Text abschicken</button>
+</mat-card>
+
+<mat-accordion multi="true">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <p>Deutscher Text</p>
+    </mat-expansion-panel-header>
+      <p>{{germanText}}</p>
+  </mat-expansion-panel>
+</mat-accordion>
