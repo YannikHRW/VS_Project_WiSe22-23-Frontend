@@ -3,16 +3,31 @@
       <p style="color: white">Englischer Text</p>
     </mat-card-title>
     <mat-form-field>
-      <textarea matInput rows="6" name="englishText" [(ngModel)]="enteredValue" required placeholder="Englischer Text"></textarea>
+      <textarea matInput rows="4" name="englishText" [(ngModel)]="enteredValue" required placeholder="Englischer Text"></textarea>
     </mat-form-field>
-    <button (click)="onSendText()" mat-raised-button color="primary">Text abschicken</button>
+    <button (click)="onTranslateToDE()" mat-raised-button color="primary">Text übersetzen</button>
 </mat-card>
 
-<mat-accordion multi="true">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <p>Deutscher Text</p>
-    </mat-expansion-panel-header>
-      <p>{{germanText}}</p>
-  </mat-expansion-panel>
-</mat-accordion>
+<mat-card *ngIf="germanText.length > 0">
+  <mat-card-title>
+    <p style="color: white">Deutscher Text</p>
+  </mat-card-title>
+  <mat-form-field>
+    <textarea matInput rows="4" name="englishText" [(ngModel)]="germanText" required placeholder="Englischer Text"></textarea>
+  </mat-form-field>
+  <div class="btn-cont">
+    <button id="gs" (click)="onCorrectText()" mat-raised-button color="primary">Text korrigieren</button>
+    <span class="spacer"></span>
+    <button id="opt" (click)="onTranslateToDE()" mat-raised-button color="primary">Text optimieren</button>
+  </div>
+</mat-card>
+
+<mat-card *ngIf="correctedText.length > 0">
+  <mat-card-title>
+    <p style="color: white">Korrigierter Text</p>
+  </mat-card-title>
+  <mat-form-field>
+    <textarea matInput rows="4" name="englishText" [(ngModel)]="correctedText" required placeholder="Englischer Text"></textarea>
+  </mat-form-field>
+  <button (click)="onTranslateToDE()" mat-raised-button color="primary">Text übersetzen</button>
+</mat-card>

@@ -11,15 +11,24 @@ export class MainpageComponent{
   constructor(private httpClient: HttpClient) {}
 
   enteredValue = '';
-  germanText: Object = '';
+  germanText = '';
+  correctedText = '';
+  optimizedText = '';
 
-  onSendText(){
+  onTranslateToDE(){
     let textOB = {text: this.enteredValue};
-    this.httpClient.post<{text: string}>('http://localhost:5000/translate/DE', textOB).subscribe((responsData) => {
-      console.log(responsData.text);
-      this.germanText = responsData.text;
+    this.httpClient.post<{text: string}>('http://localhost:5000/translate/DE', textOB).subscribe((response) => {
+      console.log(response.text);
+      this.germanText = response.text;
     })
-
     // this.englishText = this.enteredValue;
+  }
+  onCorrectText(){
+    let textOB = {text: this.germanText};
+    this.httpClient.post<{message: string, text: string}>('http://localhost:5000/optimize', textOB).subscribe((response) => {
+      console.log(response.text);
+      console.log(response.message);
+      this.correctedText = response.text;
+    })
   }
 }
