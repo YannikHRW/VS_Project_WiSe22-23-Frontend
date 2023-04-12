@@ -1,33 +1,64 @@
-<mat-card>
-    <mat-card-title>
-      <p style="color: white">Englischer Text</p>
-    </mat-card-title>
-    <mat-form-field>
-      <textarea matInput rows="4" name="englishText" [(ngModel)]="enteredValue" required placeholder="Englischer Text"></textarea>
-    </mat-form-field>
-    <button (click)="onTranslateToDE()" mat-raised-button color="primary">Text übersetzen</button>
-</mat-card>
-
-<mat-card *ngIf="germanText.length > 0">
-  <mat-card-title>
-    <p style="color: white">Deutscher Text</p>
-  </mat-card-title>
-  <mat-form-field>
-    <textarea matInput rows="4" name="englishText" [(ngModel)]="germanText" required placeholder="Englischer Text"></textarea>
-  </mat-form-field>
-  <div class="btn-cont">
-    <button id="gs" (click)="onCorrectText()" mat-raised-button color="primary">Text korrigieren</button>
-    <span class="spacer"></span>
-    <button id="opt" (click)="onTranslateToDE()" mat-raised-button color="primary">Text optimieren</button>
+<div class="grid-container">
+  <div class="column">
+    <mat-card *ngIf="delta >= 0">
+      <mat-card-title>
+        <p style="color: white">Calculated Delta between texts</p>
+      </mat-card-title>
+      <mat-card-content>
+        <p style="color: white">Delta: {{delta}}</p>
+      </mat-card-content>
+    </mat-card>
   </div>
-</mat-card>
+  <div class="column">
+    <mat-card>
+      <mat-card-title>
+        <p style="color: white">English Text</p>
+      </mat-card-title>
+      <mat-form-field>
+        <textarea matInput rows="4" name="englishText" [(ngModel)]="originalText" required placeholder="English Text"></textarea>
+      </mat-form-field>
+      <div class="btn-cont">
+        <button (click)="onTranslateToDE()" mat-raised-button color="primary">Translate to german</button>
 
-<mat-card *ngIf="correctedText.length > 0">
-  <mat-card-title>
-    <p style="color: white">Korrigierter Text</p>
-  </mat-card-title>
-  <mat-form-field>
-    <textarea matInput rows="4" name="englishText" [(ngModel)]="correctedText" required placeholder="Englischer Text"></textarea>
-  </mat-form-field>
-  <button (click)="onTranslateToDE()" mat-raised-button color="primary">Text übersetzen</button>
-</mat-card>
+      </div>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title>
+        <p style="color: white">German Text</p>
+      </mat-card-title>
+      <mat-form-field>
+        <textarea matInput rows="4" name="englishText" [(ngModel)]="germanText" required placeholder="German Text"></textarea>
+      </mat-form-field>
+      <div class="btn-cont">
+        <button id="gs" (click)="onCorrectText()" mat-raised-button color="primary">Grammar and spelling correction</button>
+        <span class="spacer"></span>
+        <button id="opt" (click)="onParaphraseText()" mat-raised-button color="primary">Paraphrasing</button>
+      </div>
+    </mat-card>
+
+    <mat-card *ngIf="editedText.length > 0">
+      <mat-card-title>
+        <p style="color: white">Corrected / Paraphrased Text</p>
+      </mat-card-title>
+      <mat-form-field>
+        <textarea matInput rows="4" name="englishText" [(ngModel)]="editedText" required placeholder="Englischer Text"></textarea>
+      </mat-form-field>
+      <button (click)="onTranslateToEN()" mat-raised-button color="primary">Translate to english</button>
+    </mat-card>
+
+    <mat-card *ngIf="englishText.length > 0">
+      <mat-card-title>
+        <p style="color: white">English Text</p>
+      </mat-card-title>
+      <mat-form-field>
+        <textarea matInput rows="4" name="englishText" [(ngModel)]="englishText" required placeholder="English Text"></textarea>
+      </mat-form-field>
+      <button (click)="onCheckSimilarity()" mat-raised-button color="primary">Calculate Delta</button>
+    </mat-card>
+  </div>
+  <div class="column">
+
+  </div>
+</div>
+
