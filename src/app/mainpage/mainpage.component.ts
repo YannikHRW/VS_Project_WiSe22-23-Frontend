@@ -13,6 +13,7 @@ export class MainpageComponent {
 
   originalText = '';
   germanText = '';
+  lastSentText = '';
   editedText = '';
   englishText = '';
   delta = -100;
@@ -30,7 +31,7 @@ export class MainpageComponent {
     })
   }
   onCorrectText() {
-    if (this.editedText.length > 0){
+    if (this.editedText.length > 0 && this.lastSentText == this.germanText){
       let textOB = {text: this.editedText};
       this.httpClient.post<{ optimizedTextGS: string }>('http://localhost:5000/optimize/gs-correction', textOB).subscribe((response) => {
         this.editedText = response.optimizedTextGS;
@@ -41,9 +42,10 @@ export class MainpageComponent {
         this.editedText = response.optimizedTextGS;
       })
     }
+    this.lastSentText = this.germanText;
   }
   onParaphraseText() {
-    if (this.editedText.length > 0) {
+    if (this.editedText.length > 0 && this.lastSentText == this.germanText) {
       let textOB = {text: this.editedText};
       this.httpClient.post<{ optimizedTextPara: string }>('http://localhost:5000/optimize/paraphrasing', textOB).subscribe((response) => {
         console.log(response.optimizedTextPara);
@@ -55,6 +57,7 @@ export class MainpageComponent {
         this.editedText = response.optimizedTextPara;
       })
     }
+    this.lastSentText = this.germanText;
   }
   onCheckSimilarity(){
     this.httpClient.get<{delta: any}>('http://localhost:5000/similarity').subscribe((response) => {
