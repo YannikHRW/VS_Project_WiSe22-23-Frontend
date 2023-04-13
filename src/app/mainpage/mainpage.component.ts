@@ -18,6 +18,7 @@ export class MainpageComponent {
   englishText = '';
   delta = -100;
   isLoading = false;
+  selectedMode = 1;
 
   onTranslateToDE() {
     let textOB = {text: this.originalText};
@@ -72,11 +73,19 @@ export class MainpageComponent {
     this.lastSentText = this.germanText;
   }
   onCheckSimilarity(){
-    this.isLoading = true;
-    this.httpClient.get<{delta: any}>('http://localhost:5000/similarity').subscribe((response) => {
-      this.isLoading = false;
-      this.delta = response.delta.similarity;
-      console.log(this.delta);
-    })
+    //Semantic Mode
+    if (this.selectedMode == 1){
+      this.isLoading = true;
+      this.httpClient.get<{delta: any}>('http://localhost:5000/similarity').subscribe((response) => {
+        this.isLoading = false;
+        this.delta = response.delta.similarity;
+      })
+    }else if (this.selectedMode == 2) {
+      this.isLoading = true;
+      this.httpClient.get<{delta: any}>('http://localhost:5000/similarity/syntactic').subscribe((response) => {
+        this.isLoading = false;
+        this.delta = response.delta.similarity;
+      })
+    }
   }
 }

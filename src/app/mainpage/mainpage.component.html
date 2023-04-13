@@ -26,7 +26,12 @@
         <textarea matInput rows="4" name="englishText" [(ngModel)]="englishText" required placeholder="English Text"></textarea>
       </mat-form-field>
       <div class="btn-cont">
-        <button (click)="onCheckSimilarity()" mat-raised-button color="primary" [disabled]="isLoading">Calculate Delta</button>
+        <button (click)="onCheckSimilarity()" mat-raised-button color="primary" [disabled]="isLoading">Calculate Similarity</button>
+        <mat-radio-group [(ngModel)]="selectedMode" aria-label="Select an option">
+          <mat-radio-button [value]="1">Semantic Mode</mat-radio-button>
+          <mat-radio-button [value]="2">Syntactic Mode</mat-radio-button>
+          <p>{{selectedMode}}</p>
+        </mat-radio-group>
       </div>
     </mat-card>
 
