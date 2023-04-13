@@ -1,54 +1,104 @@
-.grid-container{
-  display: flex;
+@media all and (max-width: 600px) {
+  .grid-container{
+    display: block;
+  }
+  .column{
+    flex: 33.33%;
+    margin: 5px;
+  }
+  mat-card{
+    padding: 1%;
+    margin: auto;
+    margin-top: 3%;
+    width: 95%;
+  }
+  mat-card-title{
+    padding-left: 1%;
+  }
+  button{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding:25px;
+    width: 48%;
+    font-size: 0.8rem;
+  }
+  .spacer{
+    flex: 1 1 auto;
+  }
+  .btn-cont{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .spacer{
+    flex: 1 1 auto;
+  }
+  mat-accordion, mat-expansion-panel{
+    width: 46%;
+    padding: 2%;
+    margin: auto;
+  }
+  textarea{
+    width: 100%;
+    height: 100%;
+  }
+  .title{
+    display: flex;
+  }
+  mat-spinner{
+    margin-top: 15px;
+    margin-left: 10px;
+  }
 }
-.column{
-  flex: 50%;
-}
-mat-card{
-  padding: 1%;
-  margin: auto;
-  margin-top: 3%;
-  width: 95%;
-}
-mat-card-title{
-  padding-left: 1%;
-}
-button{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding:25px;
-  width: 48%;
-  font-size: 0.8rem;
-}
-.spacer{
-  flex: 1 1 auto;
-}
-.btn-cont{
-  padding: 5px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.spacer{
-  flex: 1 1 auto;
-}
-mat-form-field{
-  display: block;
-}
-
-mat-accordion, mat-expansion-panel{
-  width: 46%;
-  padding: 2%;
-  margin: auto;
-}
-textarea{
-  width: 100%;
-  height: 100%;
-}
-.title{
-  display: flex;
-}
-mat-spinner{
-  margin-top: 15px;
-  margin-left: 10px;
+@media all and (min-width: 601px) {
+  .grid-container{
+    display: flex;
+  }
+  .column{
+    flex: 33.33%;
+    margin: 5px;
+  }
+  mat-card{
+    padding: 1%;
+    margin: auto;
+    margin-top: 3%;
+    width: 95%;
+  }
+  mat-card-title{
+    padding-left: 1%;
+  }
+  button{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding:25px;
+    width: 48%;
+    font-size: 0.8rem;
+  }
+  .spacer{
+    flex: 1 1 auto;
+  }
+  .btn-cont{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .spacer{
+    flex: 1 1 auto;
+  }
+  mat-accordion, mat-expansion-panel{
+    width: 46%;
+    padding: 2%;
+    margin: auto;
+  }
+  textarea{
+    width: 100%;
+    height: 100%;
+  }
+  .title{
+    display: flex;
+  }
+  mat-spinner{
+    margin-top: 15px;
+    margin-left: 10px;
+  }
 }
