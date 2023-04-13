@@ -17,28 +17,37 @@ export class MainpageComponent {
   editedText = '';
   englishText = '';
   delta = -100;
+  isLoading = false;
 
   onTranslateToDE() {
     let textOB = {text: this.originalText};
+    this.isLoading = true;
     this.httpClient.post<{ germanTranslation: string }>('http://localhost:5000/translate/DE', textOB).subscribe((response) => {
+      this.isLoading = false;
       this.germanText = response.germanTranslation;
     })
   }
   onTranslateToEN(){
     let textOB = {text: this.editedText};
+    this.isLoading = true;
     this.httpClient.post<{ englishTranslation: string }>('http://localhost:5000/translate/EN', textOB).subscribe((response) => {
+      this.isLoading = false;
       this.englishText = response.englishTranslation;
     })
   }
   onCorrectText() {
     if (this.editedText.length > 0 && this.lastSentText == this.germanText){
       let textOB = {text: this.editedText};
+      this.isLoading = true;
       this.httpClient.post<{ optimizedTextGS: string }>('http://localhost:5000/optimize/gs-correction', textOB).subscribe((response) => {
+        this.isLoading = false;
         this.editedText = response.optimizedTextGS;
       })
     }else {
       let textOB = {text: this.germanText};
+      this.isLoading = true;
       this.httpClient.post<{ optimizedTextGS: string }>('http://localhost:5000/optimize/gs-correction', textOB).subscribe((response) => {
+        this.isLoading = false;
         this.editedText = response.optimizedTextGS;
       })
     }
@@ -47,20 +56,25 @@ export class MainpageComponent {
   onParaphraseText() {
     if (this.editedText.length > 0 && this.lastSentText == this.germanText) {
       let textOB = {text: this.editedText};
+      this.isLoading = true;
       this.httpClient.post<{ optimizedTextPara: string }>('http://localhost:5000/optimize/paraphrasing', textOB).subscribe((response) => {
-        console.log(response.optimizedTextPara);
+        this.isLoading = false;
         this.editedText = response.optimizedTextPara;
       })
     } else {
       let textOB = {text: this.germanText};
+      this.isLoading = true;
       this.httpClient.post<{ optimizedTextPara: string }>('http://localhost:5000/optimize/paraphrasing', textOB).subscribe((response) => {
+        this.isLoading = false;
         this.editedText = response.optimizedTextPara;
       })
     }
     this.lastSentText = this.germanText;
   }
   onCheckSimilarity(){
+    this.isLoading = true;
     this.httpClient.get<{delta: any}>('http://localhost:5000/similarity').subscribe((response) => {
+      this.isLoading = false;
       this.delta = response.delta.similarity;
       console.log(this.delta);
     })
