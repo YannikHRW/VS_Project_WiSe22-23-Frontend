@@ -1,6 +1,6 @@
 ul {
   list-style: none;
-  padding: 0;
+  padding: 2%;
   margin: 0;
 }
 
@@ -8,7 +8,6 @@ a{
   text-decoration: none;
   color: white;
 }
-
-.spacer{
-  flex: 1 1 auto;
+#swagger{
+  background-color: #3de7a4;
 }

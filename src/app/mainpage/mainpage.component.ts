@@ -19,53 +19,66 @@ export class MainpageComponent {
   delta = -100;
   isLoading = false;
   selectedMode = 1;
+  host = window.location.protocol + "//" + window.location.host;
 
   onTranslateToDE() {
     let textOB = {text: this.originalText};
     this.isLoading = true;
-    this.httpClient.post<{ germanTranslation: string }>('http://localhost:5000/translate/DE', textOB).subscribe((response) => {
-      this.isLoading = false;
-      this.germanText = response.germanTranslation;
-    },
-      error => {
-        console.log(error)
-        this.isLoading = false;
+    this.httpClient.post<{ germanTranslation: string }>(this.host+'/translate/DE', textOB)
+      .subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.germanText = response.germanTranslation;
+        },
+        error: (error) => {
+          console.log(error)
+          this.isLoading = false;
+        }
       })
   }
   onTranslateToEN(){
     let textOB = {text: this.editedText};
     this.isLoading = true;
-    this.httpClient.post<{ englishTranslation: string }>('http://localhost:5000/translate/EN', textOB).subscribe((response) => {
-      this.isLoading = false;
-      this.englishText = response.englishTranslation;
-    },
-      error => {
-        console.log(error)
-        this.isLoading = false;
+    this.httpClient.post<{ englishTranslation: string }>(this.host+'/translate/EN', textOB)
+      .subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.englishText = response.englishTranslation;
+        },
+        error: (error) => {
+          console.log(error)
+          this.isLoading = false;
+        }
       })
   }
   onCorrectText() {
     if (this.editedText.length > 0 && this.lastSentText == this.germanText){
       let textOB = {text: this.editedText};
       this.isLoading = true;
-      this.httpClient.post<{ optimizedTextGS: string }>('http://localhost:5000/optimize/gs-correction', textOB).subscribe((response) => {
-        this.isLoading = false;
-        this.editedText = response.optimizedTextGS;
-      },
-        error => {
-          console.log(error)
-          this.isLoading = false;
+      this.httpClient.post<{ optimizedTextGS: string }>(this.host+'/optimize/gs-correction', textOB)
+        .subscribe({
+          next: (response) => {
+            this.isLoading = false;
+            this.editedText = response.optimizedTextGS;
+          },
+          error: (error) => {
+            console.log(error)
+            this.isLoading = false;
+          }
         })
     }else {
       let textOB = {text: this.germanText};
       this.isLoading = true;
-      this.httpClient.post<{ optimizedTextGS: string }>('http://localhost:5000/optimize/gs-correction', textOB).subscribe((response) => {
-        this.isLoading = false;
-        this.editedText = response.optimizedTextGS;
-      },
-        error => {
-          console.log(error)
-          this.isLoading = false;
+      this.httpClient.post<{ optimizedTextGS: string }>(this.host+'/optimize/gs-correction', textOB)
+        .subscribe({
+          next: (response) => {
+            this.isLoading = false;
+            this.editedText = response.optimizedTextGS;
+          },
+          error: (error) => {
+            console.log(error)
+            this.isLoading = false;
+          }
         })
     }
     this.lastSentText = this.germanText;
@@ -74,24 +87,30 @@ export class MainpageComponent {
     if (this.editedText.length > 0 && this.lastSentText == this.germanText) {
       let textOB = {text: this.editedText};
       this.isLoading = true;
-      this.httpClient.post<{ optimizedTextPara: string }>('http://localhost:5000/optimize/paraphrasing', textOB).subscribe((response) => {
-        this.isLoading = false;
-        this.editedText = response.optimizedTextPara;
-      },
-        error => {
-          console.log(error)
-          this.isLoading = false;
+      this.httpClient.post<{ optimizedTextPara: string }>(this.host+'/optimize/paraphrasing', textOB)
+        .subscribe({
+          next: (response) => {
+            this.isLoading = false;
+            this.editedText = response.optimizedTextPara;
+          },
+          error: (error) => {
+            console.log(error)
+            this.isLoading = false;
+          }
         })
     } else {
       let textOB = {text: this.germanText};
       this.isLoading = true;
-      this.httpClient.post<{ optimizedTextPara: string }>('http://localhost:5000/optimize/paraphrasing', textOB).subscribe((response) => {
-        this.isLoading = false;
-        this.editedText = response.optimizedTextPara;
-      },
-        error => {
-          console.log(error)
-          this.isLoading = false;
+      this.httpClient.post<{ optimizedTextPara: string }>(this.host+'/optimize/paraphrasing', textOB)
+        .subscribe({
+          next: (response) => {
+            this.isLoading = false;
+            this.editedText = response.optimizedTextPara;
+          },
+          error: (error) => {
+            console.log(error)
+            this.isLoading = false;
+          }
         })
     }
     this.lastSentText = this.germanText;
@@ -99,24 +118,32 @@ export class MainpageComponent {
   onCheckSimilarity(){
     //Semantic Mode
     if (this.selectedMode == 1){
+      let textOB = {originEnglishText: this.originalText, englishTranslation: this.englishText};
       this.isLoading = true;
-      this.httpClient.get<{delta: any}>('http://localhost:5000/similarity').subscribe((response) => {
-        this.isLoading = false;
-        this.delta = response.delta.similarity;
-      },
-        error => {
-          console.log(error)
-          this.isLoading = false;
+      this.httpClient.post<{delta: any}>(this.host+'/similarity', textOB)
+        .subscribe({
+          next: (response) => {
+            this.isLoading = false;
+            this.delta = response.delta.similarity;
+          },
+          error: (error) => {
+            console.log(error)
+            this.isLoading = false;
+          }
         })
     }else if (this.selectedMode == 2) {
+      let textOB = {originEnglishText: this.originalText, englishTranslation: this.englishText};
       this.isLoading = true;
-      this.httpClient.get<{delta: any}>('http://localhost:5000/similarity/syntactic').subscribe((response) => {
-        this.isLoading = false;
-        this.delta = response.delta.similarity;
-      },
-        error => {
-          console.log(error)
-          this.isLoading = false;
+      this.httpClient.post<{delta: any}>(this.host+'/similarity/syntactic', textOB)
+        .subscribe({
+          next: (response) => {
+            this.isLoading = false;
+            this.delta = response.delta.similarity;
+          },
+          error: (error) => {
+            console.log(error)
+            this.isLoading = false;
+          }
         })
     }
   }
