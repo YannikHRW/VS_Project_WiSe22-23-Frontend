@@ -2,9 +2,10 @@
   <div class="column">
     <mat-card>
       <mat-card-title>
+        <p style="color: white; margin: 0">English Text (Input)</p>
         <span class="title">
-          <p style="color: white">English Text (Input)</p>
-          <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
+          <p *ngIf="maxChars" style="color: white; font-size: 0.9rem; margin:0px 0px 15px 0px">Max. character amount: {{maxChars}}</p>
+          <mat-spinner diameter="45" *ngIf="isLoading"></mat-spinner>
         </span>
       </mat-card-title>
       <mat-form-field>
@@ -17,8 +18,9 @@
 
     <mat-card *ngIf="englishText.length > 0">
       <mat-card-title>
+        <p style="color: white; margin: 0">English Text (Output)</p>
         <span class="title">
-          <p style="color: white">English Text (Output)</p>
+          <p *ngIf="maxChars" style="color: white; font-size: 0.9rem; margin:0px 0px 15px 0px">Max. character amount: {{maxChars}}</p>
         <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
         </span>
       </mat-card-title>
@@ -37,7 +39,7 @@
     <mat-card *ngIf="delta >= 0">
       <mat-card-title>
         <span class="title">
-          <p style="color: white">Calculated similarity between input and output</p>
+          <p style="color: white; margin: 0">Calculated similarity between input and output</p>
         </span>
       </mat-card-title>
       <mat-card-content>
@@ -49,9 +51,10 @@
   <div class="column">
     <mat-card>
       <mat-card-title>
+        <p style="color: white; margin: 0">German Text</p>
         <span class="title">
-          <p style="color: white">German Text</p>
-        <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
+          <p *ngIf="maxChars" style="color: white; font-size: 0.9rem; margin:0px 0px 15px 0px">Max. character amount: {{maxChars}}</p>
+          <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
         </span>
       </mat-card-title>
       <mat-form-field>
@@ -68,8 +71,9 @@
   <div class="column">
     <mat-card *ngIf="editedText.length > 0">
       <mat-card-title>
+        <p style="color: white; margin: 0">Corrected / Paraphrased Text</p>
         <span class="title">
-          <p style="color: white">Corrected / Paraphrased Text</p>
+          <p *ngIf="maxChars" style="color: white; font-size: 0.9rem; margin:0px 0px 15px 0px">Max. character amount: {{maxChars}}</p>
           <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
         </span>
       </mat-card-title>

@@ -1,16 +1,16 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-mainpage',
   templateUrl: 'mainpage.component.html',
   styleUrls: ['mainpage.component.css']
 })
-export class MainpageComponent {
+export class MainpageComponent implements OnInit{
 
   constructor(private httpClient: HttpClient) {
   }
-
   originalText = '';
   germanText = '';
   lastSentText = '';
@@ -20,19 +20,37 @@ export class MainpageComponent {
   isLoading = false;
   selectedMode = 1;
   host = window.location.protocol + "//" + window.location.host;
+  maxChars = 100;
 
+  ngOnInit(){
+    this.getMaxChars()
+  }
+
+  getMaxChars() {
+    this.httpClient.get<{ maxLength: number }>(this.host + '/max-length')
+      .subscribe({
+        next: (response) => {
+          this.maxChars = response.maxLength;
+        },
+        error: (error) => {
+          return
+        }
+      })
+  }
   onTranslateToDE() {
     let textOB = {text: this.originalText};
     this.isLoading = true;
-    this.httpClient.post<{ germanTranslation: string }>(this.host+'/translate/DE', textOB)
+    this.httpClient.post<{germanTranslation: string}>(this.host+'/translate/DE', textOB)
       .subscribe({
         next: (response) => {
           this.isLoading = false;
           this.germanText = response.germanTranslation;
         },
         error: (error) => {
-          console.log(error)
           this.isLoading = false;
+          alert(error.status +" "+ error.error);
+          console.log(error)
+
         }
       })
   }
@@ -46,8 +64,9 @@ export class MainpageComponent {
           this.englishText = response.englishTranslation;
         },
         error: (error) => {
-          console.log(error)
           this.isLoading = false;
+          alert(error.status +" "+ error.error);
+          console.log(error)
         }
       })
   }
@@ -62,8 +81,9 @@ export class MainpageComponent {
             this.editedText = response.optimizedTextGS;
           },
           error: (error) => {
-            console.log(error)
             this.isLoading = false;
+            alert(error.status +" "+ error.error);
+            console.log(error)
           }
         })
     }else {
@@ -76,8 +96,9 @@ export class MainpageComponent {
             this.editedText = response.optimizedTextGS;
           },
           error: (error) => {
-            console.log(error)
             this.isLoading = false;
+            alert(error.status +" "+ error.error);
+            console.log(error)
           }
         })
     }
@@ -94,8 +115,9 @@ export class MainpageComponent {
             this.editedText = response.optimizedTextPara;
           },
           error: (error) => {
-            console.log(error)
             this.isLoading = false;
+            alert(error.status +" "+ error.error);
+            console.log(error)
           }
         })
     } else {
@@ -108,14 +130,19 @@ export class MainpageComponent {
             this.editedText = response.optimizedTextPara;
           },
           error: (error) => {
-            console.log(error)
             this.isLoading = false;
+            alert(error.status +" "+ error.error);
+            console.log(error)
           }
         })
     }
     this.lastSentText = this.germanText;
   }
   onCheckSimilarity(){
+    if (this.originalText == ''){
+      alert("Input text has to be defined!")
+      return;
+    }
     //Semantic Mode
     if (this.selectedMode == 1){
       let textOB = {originEnglishText: this.originalText, englishTranslation: this.englishText};
@@ -127,8 +154,9 @@ export class MainpageComponent {
             this.delta = response.delta.similarity;
           },
           error: (error) => {
-            console.log(error)
             this.isLoading = false;
+            alert(error.status +" "+ error.error);
+            console.log(error)
           }
         })
     }else if (this.selectedMode == 2) {
@@ -141,8 +169,9 @@ export class MainpageComponent {
             this.delta = response.delta.similarity;
           },
           error: (error) => {
-            console.log(error)
             this.isLoading = false;
+            alert(error.status +" "+ error.error);
+            console.log(error)
           }
         })
     }

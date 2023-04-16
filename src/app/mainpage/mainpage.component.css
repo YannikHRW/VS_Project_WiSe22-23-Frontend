@@ -2,6 +2,18 @@
   .grid-container{
     display: block;
   }
+  ::-webkit-input-placeholder {
+    font-style: italic;
+  }
+  :-moz-placeholder {
+    font-style: italic;
+  }
+  ::-moz-placeholder {
+    font-style: italic;
+  }
+  :-ms-input-placeholder {
+    font-style: italic;
+  }
   .column{
     flex: 33.33%;
     margin: 5px;
@@ -54,6 +66,21 @@
   .grid-container{
     display: flex;
   }
+  mat-spinner{
+
+  }
+  ::-webkit-input-placeholder {
+    font-style: italic;
+  }
+  :-moz-placeholder {
+    font-style: italic;
+  }
+  ::-moz-placeholder {
+    font-style: italic;
+  }
+  :-ms-input-placeholder {
+    font-style: italic;
+  }
   .column{
     flex: 33.33%;
     margin: 5px;
@@ -97,9 +124,10 @@
   }
   .title{
     display: flex;
+    justify-content: space-between;
   }
   mat-spinner{
-    margin-top: 15px;
-    margin-left: 10px;
+    margin-right: 5px;
+    bottom: 20px;
   }
 }
