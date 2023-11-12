@@ -16,7 +16,8 @@ export class MainpageComponent implements OnInit{
   lastSentText = '';
   editedText = '';
   englishText = '';
-  delta = -100;
+  delta = '';
+  deltaIsSet = false;
   isLoading = false;
   selectedMode = 1;
   host = window.location.protocol + "//" + window.location.host;
@@ -151,10 +152,12 @@ export class MainpageComponent implements OnInit{
         .subscribe({
           next: (response) => {
             this.isLoading = false;
-            this.delta = response.delta.similarity;
+            this.delta = response.delta.similarity + '';
+            this.deltaIsSet = true;
           },
           error: (error) => {
             this.isLoading = false;
+            this.deltaIsSet = false;
             alert(error.status +" "+ error.error);
             console.log(error)
           }
@@ -166,10 +169,12 @@ export class MainpageComponent implements OnInit{
         .subscribe({
           next: (response) => {
             this.isLoading = false;
-            this.delta = response.delta.similarity;
+            this.delta = response.delta.similarity + '';
+            this.deltaIsSet = true;
           },
           error: (error) => {
             this.isLoading = false;
+            this.deltaIsSet = false;
             alert(error.status +" "+ error.error);
             console.log(error)
           }
